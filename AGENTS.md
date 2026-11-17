@@ -26,7 +26,7 @@ Change history: `CHANGELOG.md` (German, "Änderungsprotokoll"). Open items are l
    - LITFL ECGs: CC BY-NC-SA 4.0 (Burns E, Buttner R), labelled "Beispiel-EKG, nicht vom Fallpatienten".
    - **The platform is non-commercial.** Don't add anything that would change that.
    - CICMWrecks: don't use it (no licence stated).
-7. **Don't break learners' saved progress.** Progress lives in `localStorage` under `KEY = "zwb-trainer-v1"`. Never change that key, and never rename or reuse existing `id`s of lessons, cases or cards: progress and spaced-repetition data are stored by id. New items get new ids.
+7. **Don't break learners' saved progress.** Progress lives in `localStorage` under `KEY = "zwb-trainer-v1"`. Never change that key, and never rename or reuse existing `id`s of lessons, cases or cards: progress and spaced-repetition data are stored by id. New items get new ids. `tools/ids.json` is the snapshot of every id ever shipped: `check.mjs` fails if one goes missing. After adding items, run `node tools/check.mjs --update-ids` and commit `ids.json` (ids are only ever added, never removed).
 8. **The platform stays one self-contained `index.html`** (works offline, published as a Claude artifact). No build step, no npm dependencies at runtime, no external scripts. The only external resource allowed is Google Fonts.
 9. **`node tools/check.mjs` must pass before any commit.**
 

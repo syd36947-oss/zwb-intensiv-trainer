@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 // Integrity check for index.html — run after EVERY change:  node tools/check.mjs
 // Exit code 0 = OK, 1 = errors found. Warnings do not fail the check.
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import vm from "node:vm";
 
-const file = process.argv[2] || new URL("../index.html", import.meta.url);
+const args = process.argv.slice(2).filter(a => !a.startsWith("--"));
+const updateIds = process.argv.includes("--update-ids");
+const file = args[0] || new URL("../index.html", import.meta.url);
 const html = readFileSync(file, "utf8");
 const m = html.match(/<script>([\s\S]*)<\/script>/);
 if (!m) { console.error("ERROR: no inline <script> found"); process.exit(1); }
@@ -67,6 +69,22 @@ allCards.forEach(c => {
   if (c.fig && !D.FG[c.fig]) err(`card ${c.id}: unknown figure "${c.fig}"`);
   if (c.rimg && !D.RPIMG[c.rimg]) err(`card ${c.id}: unknown Radiopaedia image "${c.rimg}"`);
 });
+
+// --- 3b. Id snapshot ----------------------------------------------------------
+const idsFile = new URL("./ids.json", import.meta.url);
+let snap = null;
+if (existsSync(idsFile)) snap = JSON.parse(readFileSync(idsFile, "utf8"));
+if (updateIds) {
+  const merged = [...new Set([...(snap || []), ...ids.keys()])].sort();
+  writeFileSync(idsFile, JSON.stringify(merged, null, 2) + "\n");
+} else if (snap) {
+  const snapSet = new Set(snap);
+  for (const id of snap) if (!ids.has(id)) err(`id missing from snapshot: ${id}`);
+  const fresh = [...ids.keys()].filter(id => !snapSet.has(id));
+  if (fresh.length) warn(`${fresh.length} new id(s) not in tools/ids.json — run: node tools/check.mjs --update-ids`);
+} else {
+  warn("tools/ids.json not found — run: node tools/check.mjs --update-ids");
+}
 
 // --- 4. Source markers -------------------------------------------------------
 // Scan the content data only (not code, not the base64 image blobs).

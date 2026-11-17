@@ -3023,6 +3023,8 @@ function vStart(){
   const lDone=LESSONS.filter(l=>ST.lessons[l.id]).length;
   const cDone=CASES.filter(c=>ST.cases[c.id]).length;
   const seen=CARDS.filter(c=>!isNew(c.id)).length;
+  let bk="Noch keine Sicherung.",bd=0;if(ST.lastBackup){bd=Math.floor((Date.now()-ST.lastBackup)/864e5);bk=bd===0?"Letzte Sicherung heute.":`Letzte Sicherung vor ${bd} Tagen.`;}
+  if(seen>0&&(!ST.lastBackup||bd>14))bk=`<strong>${bk}</strong>`;
   return `<section class="banner"><div class="kicker">Mündliche Prüfung</div><h2>${days>0?`Noch ${days} Tage`:"Prüfungstermin eintragen"}</h2>
   <div class="sub">Termin <input type="date" class="date" id="exam" value="${ST.exam}" aria-label="Prüfungstermin"></div>
   <div class="stat"><div><b>${due} + ${nl}</b><span>fällig + neu heute</span></div><div><b>${lDone}/${LESSONS.length}</b><span>Lektionen</span></div><div><b>${cDone}/${CASES.length}</b><span>Fälle</span></div></div>
@@ -3033,17 +3035,21 @@ function vStart(){
     const st=!ls.length?"":done===ls.length?"ok":done?"pt":"";
     return `<li>${m.live?`<a class="crow" href="#lektionen/${m.n}">`:`<div class="crow off">`}<span class="cst ${st}"></span><span class="cmain"><span class="cmeta">Modul ${m.n} · WBO ${m.w}</span><span class="cstem">${m.t}</span><span class="cint">${m.live?`${ls.length} Lektionen · ${CASES.filter(c=>c.mod===m.n).length} Fälle · ${CARDS.filter(c=>c.mod===m.n).length} Karten`:"in Arbeit"}</span></span>${m.live?"</a>":"</div>"}</li>`;}).join("")}</ul>
   <div class="vh">Fortschritt sichern</div>
-  <div class="card"><p class="note" style="margin-top:0">Der Fortschritt liegt nur in diesem Browser. ${seen} Karten bisher gesehen. Zum Sichern den Text kopieren und an einem sicheren Ort ablegen; zum Wiederherstellen einfügen.</p>
-  <div class="acts"><button class="btn sm ghost" id="exp">Fortschritt kopieren</button><button class="btn sm ghost" id="impT">Fortschritt einfügen</button></div>
+  <div class="card"><p class="note" style="margin-top:0">${bk} Der Fortschritt liegt nur in diesem Browser. ${seen} Karten bisher gesehen. Zum Sichern als Datei speichern (oder den Text kopieren) und an einem sicheren Ort ablegen; zum Wiederherstellen die Datei laden (oder den Text einfügen).</p>
+  <div class="acts"><button class="btn sm ghost" id="exp">Fortschritt kopieren</button><button class="btn sm ghost" id="impT">Fortschritt einfügen</button><button class="btn sm ghost" id="expF">Als Datei sichern</button><button class="btn sm ghost" id="impF">Aus Datei laden</button><input type="file" id="impFile" accept=".json,application/json" hidden></div>
   <div id="impBox" hidden><textarea class="mine" id="impTxt" placeholder="Gesicherten Text hier einfügen"></textarea><div class="acts"><button class="btn sm" id="impGo">Wiederherstellen</button></div></div>
   <p class="note" id="expMsg"></p></div>
   <p class="note">Quellenmarker: <span class="src x">⚠</span> rot = Gültigkeit abgelaufen, <span class="src o">gelb</span> = älter als 5 Jahre. ${Object.keys(SRC).map(k=>`${s(k)} ${SRC[k].t}`).join(" · ")}</p>`;
 }
+function importState(o){if(!o||typeof o!=="object"||!o.cards)throw 0;const n=x=>Object.values(x.cards||{}).filter(c=>c&&c.S).length;if(!confirm(`Aktuellen Fortschritt (${n(ST)} Karten gesehen) durch die Sicherung (${n(o)} Karten gesehen) ersetzen?`))return;ST=Object.assign({lessons:{},cases:{},cards:{},quiz:{},log:[]},o);if(!ST.quiz)ST.quiz={};save();render();}
 function bindStart(){
   $("#exam").onchange=e=>{ST.exam=e.target.value;save();render();};
-  $("#exp").onclick=async()=>{try{await navigator.clipboard.writeText(JSON.stringify(ST));$("#expMsg").textContent="Kopiert.";}catch(e){$("#impBox").hidden=false;$("#impTxt").value=JSON.stringify(ST);$("#expMsg").textContent="Kopieren nicht erlaubt – Text oben markieren und kopieren.";}};
+  $("#exp").onclick=async()=>{try{await navigator.clipboard.writeText(JSON.stringify(ST));ST.lastBackup=Date.now();save();$("#expMsg").textContent="Kopiert.";}catch(e){$("#impBox").hidden=false;$("#impTxt").value=JSON.stringify(ST);$("#expMsg").textContent="Kopieren nicht erlaubt – Text oben markieren und kopieren.";}};
   $("#impT").onclick=()=>{$("#impBox").hidden=false;$("#impTxt").value="";};
-  $("#impGo").onclick=()=>{try{const o=JSON.parse($("#impTxt").value);if(!o||typeof o!=="object"||!o.cards)throw 0;ST=Object.assign({lessons:{},cases:{},cards:{},quiz:{},log:[]},o);if(!ST.quiz)ST.quiz={};save();render();}catch(e){$("#expMsg").textContent="Text nicht lesbar.";}};
+  $("#impGo").onclick=()=>{try{importState(JSON.parse($("#impTxt").value));}catch(e){$("#expMsg").textContent="Text nicht lesbar.";}};
+  $("#expF").onclick=()=>{ST.lastBackup=Date.now();save();const d=new Date(),p=x=>String(x).padStart(2,"0"),a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(ST)],{type:"application/json"}));a.download=`zwb-trainer-sicherung-${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1e3);render();$("#expMsg").textContent="Als Datei gesichert."};
+  $("#impF").onclick=()=>$("#impFile").click();
+  $("#impFile").onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{importState(JSON.parse(t));}catch(err){$("#expMsg").textContent="Datei nicht lesbar.";}e.target.value="";}).catch(()=>{$("#expMsg").textContent="Datei nicht lesbar.";});};
 }
 
 const LIVE=()=>MODULES.filter(m=>m.live);

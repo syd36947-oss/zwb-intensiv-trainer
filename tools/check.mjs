@@ -76,7 +76,7 @@ const unknown = [...new Set(markers.filter(k => !D.SRC[k] && k !== "P"))];
 if (unknown.length) err(`source markers without SRC entry: ${unknown.map(k => "[" + k + "]").join(" ")}`);
 const nL = markers.filter(k => k === "L").length;
 if (nL) warn(`${nL} unresolved [L] markers (not yet checked against sources)`);
-Object.entries(D.SRC).forEach(([k, v]) => { if (!v.t) err(`SRC.${k}: missing title t`); if (!v.u) warn(`SRC.${k}: no URL`); });
+Object.entries(D.SRC).forEach(([k, v]) => { if (!v.t) err(`SRC.${k}: missing title t`); if (!v.u && k !== "P" && k !== "L") warn(`SRC.${k}: no URL`); });
 [["RPIMG", D.RPIMG], ["EKGIMG", D.EKGIMG]].forEach(([n, o]) => Object.entries(o).forEach(([k, v]) => {
   if (!v.d || !v.d.startsWith("data:image/")) err(`${n}.${k}: not an embedded data: image`);
 }));

@@ -114,7 +114,7 @@ Shuffling note: in check questions the correct answer must **not** be noticeably
 2. `git switch -c task/<short-name>` (one branch per task)
 3. Make small edits → `node tools/check.mjs` → open `index.html` in a browser and test on a phone-width window too
 4. Commit (English, imperative, e.g. `Add search highlighting in card view`)
-5. The orchestrator reviews the diff. Only then merge into `main`
+5. The orchestrator reviews the diff **and runs `node tools/content-diff.mjs main HEAD`** (lists every added/removed/changed lesson, case, card, Spick block, source). For a worker branch the expected output is `content-diff: no content changes`. A PR is opened; the user merges on GitHub
 6. Medical changes → entry in `CHANGELOG.md`
 7. To publish: the user re-uploads `index.html` to the Claude artifact (or GitHub Pages). Agents don't publish.
 

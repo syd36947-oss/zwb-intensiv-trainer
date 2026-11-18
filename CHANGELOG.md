@@ -1,5 +1,12 @@
 # ZWB Intensiv-Trainer – Änderungsprotokoll
 
+## 18.11.2026 – Drei neue Fälle (offene Punkte Endokarditis und Punktionen)
+- Fieber, Diastolikum, Lungenödem (Modul 8): Aortenklappen-Endokarditis mit akuter Insuffizienz – Blutkulturen vor Antibiose, Überbrückung (keine Bradykardie, keine IABP), Notfall-OP innerhalb von 24 h, ischämischer Schlaganfall verzögert die OP nicht, Zählung der Therapiedauer (ESC 2023).
+- Neues Fieber und Erguss am Beatmungstag 5 (Modul 6): diagnostische Pleurapunktion mit Laborplan, Empyem bei pH < 7,2, gekammerter Verhalt mit t-PA/DNase (MIST-2) oder VATS, Reexpansionsödem.
+- Zirrhose, Verwirrtheit, steigendes Kreatinin (Modul 6): diagnostische Aszitespunktion trotz Gerinnungsstörung, SBP mit Antibiose und Albumin 1,5/1 g/kg, Hausmedikation, HRS-AKI, Therapieversagen bei Granulozytenabfall < 25 % nach 48 h (EASL 2018).
+- Neue Quelle [MI2]: MIST-2 (NEJM 2011).
+- Stand: 71 Lektionen, 48 Fälle, 350 Karten.
+
 ## 18.11.2026 – Leitlinienstand der abgelaufenen Leitlinien geprüft
 - Geprüft gegen AWMF-Neuigkeiten und die Registerübersicht (Stand 10/2026): Für keine der vier abgelaufenen Leitlinien ist bisher eine Neufassung erschienen. Kennzeichnung ⚠ bleibt.
 - Quellenangaben präzisiert:
@@ -77,4 +84,4 @@
 - Mediainfarkt-Bild fehlt noch (Bild bei Radiopaedia ließ sich nicht dekodieren).
 - Gewichtung nach Prüfungsrelevanz: echte Prüfungsprotokolle (z. B. MEDI-LEARN, kostenloses Konto) fehlen noch.
 - BW-Wortlaut des WBO-Katalogs und Prüfungsablauf bei der Bezirksärztekammer Südbaden bestätigen.
-- Noch ohne eigenen Fall: Endokarditis/Herzinsuffizienz, Pleura-/Aszitespunktion, Polytrauma-Intensivphase.
+- Noch ohne eigenen Fall: Polytrauma-Intensivphase (teilweise durch m13f2 und m5f3 abgedeckt).

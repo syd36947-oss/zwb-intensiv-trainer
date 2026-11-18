@@ -6,7 +6,7 @@ Instructions for every agent working in this repo: the **orchestrator** (Claude 
 
 A German learning platform for the **Zusatzbezeichnung Intensivmedizin** exam (Germany, Landesärztekammer Baden-Württemberg / Bezirksärztekammer Südbaden). Owner: Sabi Dimitrov, Facharzt für Anästhesiologie. Target exam date: autumn 2027 (`ST.exam = "2027-10-01"`).
 
-Current state: 13 modules, 71 lessons, 45 cases, 350 cards, 27 cheat-sheet blocks, 12 radiology atlas topics, 106 sources. Run `node tools/check.mjs` for live numbers.
+Current state: 13 modules, 71 lessons, 48 cases, 350 cards, 27 cheat-sheet blocks, 12 radiology atlas topics, 106 sources. Run `node tools/check.mjs` for live numbers.
 
 Change history: `CHANGELOG.md` (German, "Änderungsprotokoll"). Open items are listed at the end of it.
 
@@ -134,7 +134,7 @@ REPORT BACK: diff summary + anything unclear
 - Missing image for the MCA infarct (Radiopaedia rID 17816 wouldn't decode)
 - Weighting by exam relevance: real exam reports (e.g. MEDI-LEARN) still missing
 - Confirm the BW wording of the WBO catalogue and the exam procedure with the Bezirksärztekammer Südbaden
-- Topics without their own case yet: endocarditis/heart failure, pleural/ascites tap, polytrauma ICU phase
+- Topics without their own case yet: polytrauma ICU phase (partly covered by m13f2, m5f3)
 - Expired guidelines (checked 18.11.2026, none republished yet): kardiogener Schock 019-013 (new version announced, expected first), DAS 001-012 (registered 04/2026), SHT 008-001 (registered 10/2025), herzchirurgische Intensivmedizin 001-016. When one appears: update SRC + OLD, then re-check every lesson using that marker.
 - register.awmf.org blocks automated browsers (bot wall). Use awmf.org/aktuelles news pages or the cme.rg-web.de register mirror for status; open PDFs manually if needed.
 - Not yet cited: S3 Vorhofflimmern 019-014 (2025) and S3 COVID-19 living guideline 113-001 (2026); candidates for VHF lesson and viral pneumonia lesson.

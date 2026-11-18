@@ -1,5 +1,14 @@
 # ZWB Intensiv-Trainer – Änderungsprotokoll
 
+## 18.11.2026 – Leitlinienstand der abgelaufenen Leitlinien geprüft
+- Geprüft gegen AWMF-Neuigkeiten und die Registerübersicht (Stand 10/2026): Für keine der vier abgelaufenen Leitlinien ist bisher eine Neufassung erschienen. Kennzeichnung ⚠ bleibt.
+- Quellenangaben präzisiert:
+  - Kardiogener Schock (019-013): gültig bis 31.01.2024, Überarbeitung seit 05/2024 angemeldet. Die Neufassung wurde auf der DGK-Tagung 2025 angekündigt (30 Empfehlungen, Dobutamin/Noradrenalin weiter erste Wahl) – deckt sich mit den bisherigen Inhalten.
+  - DAS-Leitlinie (001-012): gültig bis 08/2025, Neufassung seit 04/2026 angemeldet; Referenzdokument ist SCCM PADIS Focused Update 2025 (bereits Quelle [PA]).
+  - Herzchirurgische Intensivmedizin (001-016): V3.1, Stand 12/2017, gültig bis 30.11.2022; keine Neufassung angemeldet gefunden.
+  - SHT (008-001): Überarbeitung seit 10/2025 angemeldet.
+- Keine inhaltlichen Änderungen an Lektionen, Fällen oder Karten.
+
 ## 16.11.2026 – Schnelle Optimierungen
 - Kontrollfragen: Antworten bei jedem Aufruf gemischt; auffällig lange richtige Antworten ausgeglichen.
 - Ergebnisse der Kontrollfragen werden gespeichert; neue Ansichten „Fehlerfragen“ und „10 zufällige Kontrollfragen“.

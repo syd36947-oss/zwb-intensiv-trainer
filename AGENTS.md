@@ -135,4 +135,6 @@ REPORT BACK: diff summary + anything unclear
 - Weighting by exam relevance: real exam reports (e.g. MEDI-LEARN) still missing
 - Confirm the BW wording of the WBO catalogue and the exam procedure with the Bezirksärztekammer Südbaden
 - Topics without their own case yet: endocarditis/heart failure, pleural/ascites tap, polytrauma ICU phase
-- Some old guidelines are flagged as expired (DAS 2020, kardiogener Schock 2019, SHT 2015, herzchirurgische Intensivmedizin 2018): watch for updates
+- Expired guidelines (checked 18.11.2026, none republished yet): kardiogener Schock 019-013 (new version announced, expected first), DAS 001-012 (registered 04/2026), SHT 008-001 (registered 10/2025), herzchirurgische Intensivmedizin 001-016. When one appears: update SRC + OLD, then re-check every lesson using that marker.
+- register.awmf.org blocks automated browsers (bot wall). Use awmf.org/aktuelles news pages or the cme.rg-web.de register mirror for status; open PDFs manually if needed.
+- Not yet cited: S3 Vorhofflimmern 019-014 (2025) and S3 COVID-19 living guideline 113-001 (2026); candidates for VHF lesson and viral pneumonia lesson.

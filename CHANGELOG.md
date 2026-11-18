@@ -1,5 +1,12 @@
 # ZWB Intensiv-Trainer – Änderungsprotokoll
 
+## 18.11.2026 – Modul Niere: Nierenersatz in der Praxis (S3 2025)
+- Neue Lektion „Nierenersatz in der Praxis“: wann nicht beginnen (E1.3–E1.7), Verfahrenswahl in Sondersituationen (Hyperkaliämie, Rhabdomyolyse, Instabilität, Hirndruck, Filterclotting, Citratakkumulation, Mobilisation), Disäquilibrium, Antiinfektiva-Dosierung unter Nierenersatz (E6.1–E6.8), Beenden (E7.1–E7.8); 3 Kontrollfragen.
+- Je eine neue Kontrollfrage in „Nierenersatztherapie“ (Citratakkumulation) und „Spezielle Nierenprobleme“ (Rhabdomyolyse).
+- 4 neue Karten (c923–c926); Karte „Wann beenden Sie den Nierenersatz?“ an die Leitlinie angepasst (Orientierung 300–600 ml/Tag statt > 400–500 ml/24 h).
+- Quelle [A8] um Empfehlungsnummern und die englische Open-Access-Fassung (Crit Care 2025) ergänzt; alle Aussagen mit Empfehlungsnummer belegt.
+- Stand: 72 Lektionen, 354 Karten.
+
 ## 18.11.2026 – Leitlinienstand der abgelaufenen Leitlinien geprüft
 - Geprüft gegen AWMF-Neuigkeiten und die Registerübersicht (Stand 10/2026): Für keine der vier abgelaufenen Leitlinien ist bisher eine Neufassung erschienen. Kennzeichnung ⚠ bleibt.
 - Quellenangaben präzisiert:

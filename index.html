@@ -132,6 +132,10 @@ textarea.mine{width:100%;font:inherit;font-size:16px;line-height:1.4;padding:8px
 .stat div{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:8px 10px}
 .stat b{display:block;font:600 22px/1.1 var(--font-head);color:var(--accent)}
 .stat span{font:500 11px var(--font-mono);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.fc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.fcb{height:64px;display:flex;flex-direction:column-reverse;background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.fcb i{display:block;background:var(--accent)}.fcb i.n{opacity:.4}
+.fcd b{display:block;font:600 13px var(--font-mono);margin-top:4px}.fcd span{font:500 11px var(--font-mono);color:var(--muted)}
 .calcbox{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .calcbox label{min-width:0}
 .calcbox input,.calcbox select{width:100%;min-width:0;max-width:100%;box-sizing:border-box;text-overflow:ellipsis}
@@ -3017,6 +3021,7 @@ function bindQuiz(onAnswer){
 }
 
 /* ============ ANSICHTEN ============ */
+function vPlan(){const t0=new Date(Date.now()-4*36e5);t0.setHours(0,0,0,0);const base=t0.getTime()+4*36e5;const nNew=CARDS.filter(c=>isNew(c.id)).length;const b=[...Array(7)].map(()=>({r:0,n:0}));for(const c of CARDS){const s=ST.cards[c.id];if(s&&s.S){const i=Math.max(0,Math.floor((s.due-base)/864e5));if(i<7)b[i].r++;}}let rem=nNew;for(let i=0;i<7;i++){b[i].n=i===0?Math.min(newLeft(),rem):Math.min(ST.newPerDay,rem);rem-=b[i].n;}const mx=Math.max(1,...b.map(x=>x.r+x.n));const cols=b.map((x,i)=>`<div class="fcd"><div class="fcb"><i style="height:${Math.round(x.r/mx*100)}%"></i><i class="n" style="height:${Math.round(x.n/mx*100)}%"></i></div><b>${x.r}+${x.n}</b><span>${i===0?"heute":new Date(base+i*864e5).toLocaleDateString("de-DE",{weekday:"short"})}</span></div>`).join("");let sent;if(!nNew)sent=`Alle ${CARDS.length} Karten sind eingeführt.`;else if(ST.newPerDay<=0)sent=`<strong>Neue Karten pro Tag ist 0 – ${nNew} Karten werden nie eingeführt.</strong>`;else{const d=Math.ceil(nNew/ST.newPerDay),end=base+(d-1)*864e5,exam=new Date(ST.exam).getTime(),daysLeft=Math.ceil((new Date(ST.exam)-new Date())/864e5);sent=end<exam?`${nNew} neue Karten offen. Bei ${ST.newPerDay} pro Tag sind alle am ${new Date(end).toLocaleDateString("de-DE")} eingeführt, ${Math.round((exam-end)/864e5)} Tage vor der Prüfung.`:`<strong>${nNew} neue Karten offen. Bei ${ST.newPerDay} pro Tag reicht die Zeit bis zur Prüfung nicht – nötig wären ${Math.ceil(nNew/Math.max(1,daysLeft))} pro Tag.</strong>`;}return `<div class="vh">Lernplan</div><div class="card"><div class="fc">${cols}</div><p class="note">Wiederholungen + neue Karten pro Tag (blasser Anteil = neu). ${sent}</p></div>`;}
 function vStart(){
   const days=Math.ceil((new Date(ST.exam)-new Date())/864e5);
   const due=CARDS.filter(c=>isDue(c.id)).length;const nl=Math.min(newLeft(),CARDS.filter(c=>isNew(c.id)).length);
@@ -3028,7 +3033,7 @@ function vStart(){
   return `<section class="banner"><div class="kicker">Mündliche Prüfung</div><h2>${days>0?`Noch ${days} Tage`:"Prüfungstermin eintragen"}</h2>
   <div class="sub">Termin <input type="date" class="date" id="exam" value="${ST.exam}" aria-label="Prüfungstermin"></div>
   <div class="stat"><div><b>${due} + ${nl}</b><span>fällig + neu heute</span></div><div><b>${lDone}/${LESSONS.length}</b><span>Lektionen</span></div><div><b>${cDone}/${CASES.length}</b><span>Fälle</span></div></div>
-  <div class="acts"><a class="btn" href="#karten-lernen">Karten lernen</a><a class="btn ghost" href="#mock">Mock-Prüfung</a>${wrongKeys().length?`<a class="btn ghost" href="#fehler">Fehlerfragen (${wrongKeys().length})</a>`:""}<a class="btn ghost" href="#suche">Suche</a><a class="btn ghost" href="#atlas">Radiologie-Atlas</a></div></section>
+  <div class="acts"><a class="btn" href="#karten-lernen">Karten lernen</a><a class="btn ghost" href="#mock">Mock-Prüfung</a>${wrongKeys().length?`<a class="btn ghost" href="#fehler">Fehlerfragen (${wrongKeys().length})</a>`:""}<a class="btn ghost" href="#suche">Suche</a><a class="btn ghost" href="#atlas">Radiologie-Atlas</a></div></section>${vPlan()}
   <div class="vh">Module nach WBO 2020</div>
   <ul class="clist">${MODULES.map(m=>{
     const ls=LESSONS.filter(l=>l.mod===m.n),done=ls.filter(l=>ST.lessons[l.id]).length;
